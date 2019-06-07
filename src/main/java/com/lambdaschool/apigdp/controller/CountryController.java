@@ -92,4 +92,21 @@ public class CountryController
 
         return mav;
     }
+
+    //*** Stretch ***
+    //localhost:8080/data/total
+    @GetMapping(value = "/total",
+            produces = {"application/json"})
+    public ResponseEntity<?> getGDPTotal(HttpServletRequest request)
+    {
+        logger.info(request.getRequestURI());
+
+        double myValue = 0.0;
+        for (GDP m : ApigdpApplication.ourCountryList.gdpList)
+        {
+            myValue = myValue + m.getGdp();
+        }
+
+        return new ResponseEntity<>(myValue, HttpStatus.OK);
+    }
 }
